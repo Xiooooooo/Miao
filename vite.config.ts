@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 
 export default defineConfig(({ mode }) => {
   // Load env file based on `mode` in the current working directory.
+  // Using (process as any).cwd() to ensure compatibility even if types are finicky
   const env = loadEnv(mode, (process as any).cwd(), '');
 
   return {
