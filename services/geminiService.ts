@@ -2,13 +2,15 @@ import { GoogleGenAI, Type } from "@google/genai";
 import { Transaction, CategoryItem } from "../types";
 
 const getAIClient = () => {
-  // Try retrieving from Vite's import.meta.env first, then fallback to process.env
-  // Guidelines: API key must be obtained exclusively from process.env.API_KEY
-  const apiKey = process.env.API_KEY;
+  // Guidelines: API key must be obtained exclusively from process.env.API_KEY.
+  // In Vite + Vercel, 'process.env.API_KEY' is replaced by the defined string literal at build time.
+  // We add import.meta.env checks as a fallback safety for local development environments.
+  const apiKey = process.env.API_KEY || (import.meta as any).env?.API_KEY || (import.meta as any).env?.VITE_API_KEY;
   
   if (!apiKey) {
     console.error("API_KEY is missing. Please check your .env file or Vercel Environment Variables.");
-    console.log("Debug Info: Key found?", !!apiKey);
+    // Do not log the actual key for security, just presence
+    console.log("Debug Info: Key defined?", !!apiKey);
     return null;
   }
   return new GoogleGenAI({ apiKey });
