@@ -1,0 +1,7 @@
+{
+  "name": "Miao记账 (AI版)",
+  "description": "A cute, AI-powered personal bookkeeping app inspired by KaPi, featuring natural language entry and smart insights.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
